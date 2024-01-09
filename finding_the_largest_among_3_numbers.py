@@ -39,11 +39,33 @@ def user_input_three_numbers(event):
 
     # first_input = Entry()
     
-    def second_text(event):
-        second_number = Image.open("images/second_number.png")
-        resized_second_number = second_number.resize((450,50))
-        new_second_number = ImageTk.PhotoImage(resized_second_number)
-        canvas.itemconfig(number_display_id, image=second_number)
+    def emu_conversation(event):
+        first_entry = simpledialog.askfloat("Your First Number","Please input your 1st Number: ")
+        if first_entry == None:
+            messagebox.showerror("Error", "Please input a number ")
+            return(user_window)
+        
+        second_entry = simpledialog.askfloat("Your Second Number","Please input your 2nd Number: ")
+        if second_entry == None:
+            messagebox.showerror("Error", "Please input a number ")
+            return(first_entry)
+        
+        third_entry = simpledialog.askfloat("Your Third Number","Please input your 3rd Number: ")
+        if third_entry == None:
+            messagebox.showerror("Error", "Please input a number ")
+            return(second_entry)
+        
+        if first_entry == second_entry == third_entry:
+            result_equal= (f"The numbers {first_entry}, {second_entry} and {third_entry} are equal to each other.")
+            messagebox.showinfo("Results",result_equal )
+            main_window.destroy()
+
+        #check for the largest number in the three numbers collected
+        else:
+            largest_number = max(first_entry, second_entry, third_entry)
+            result = (f"Among the numbers {first_entry}, {second_entry} and {third_entry}, the largest is {largest_number}")
+            messagebox.showinfo("Results",result )
+            main_window.destroy()
     
     def back_to_main(event):
         user_window.destroy()
@@ -81,6 +103,26 @@ def user_input_three_numbers(event):
     new_model_name = ImageTk.PhotoImage(resized_model_name)
     model_name_display = canvas.create_image(200, 435, image=new_model_name, anchor=tk.NW)
 
+    conversation_text = Image.open("images/conversation_text.png")
+    resized_conversation_text = conversation_text.resize((450,50))
+    new_conversation_text = ImageTk.PhotoImage(resized_conversation_text)
+    conversation_text_display = canvas.create_image(140, 515, image=new_conversation_text, anchor=tk.NW)
+
+    conversation_text_2 = Image.open("images/conversation_text_2.png")
+    resized_conversation_text_2 = conversation_text_2.resize((450,50))
+    new_conversation_text_2 = ImageTk.PhotoImage(resized_conversation_text_2)
+    conversation_text_2_display = canvas.create_image(610, 515, image=new_conversation_text_2, anchor=tk.NW)
+
+    # first_number = Image.open("images/first_number.png")
+    # resized_first_number = first_number.resize((450,50))
+    # new_first_number = ImageTk.PhotoImage(resized_first_number)
+    # number_display_id = canvas.create_image(200, 515, image=new_first_number, anchor=tk.NW)
+
+    # second_number = Image.open("images/second_number.png")
+    # resized_second_number = second_number.resize((450,50))
+    # new_second_number = ImageTk.PhotoImage(resized_second_number)
+
+    #cursor of the buttons
     def enter():
         canvas.config(cursor="hand2")
 
@@ -91,7 +133,7 @@ def user_input_three_numbers(event):
     resized_submit_button = submit_button.resize((150,50))
     new_submit_button = ImageTk.PhotoImage(resized_submit_button)
     submit_button_display = canvas.create_image(700, 575, image=new_submit_button, anchor=tk.NW, tag = tagname)
-    canvas.tag_bind(submit_button_display, "<Button-1>", second_text)
+    canvas.tag_bind(submit_button_display, "<Button-1>", emu_conversation)
     
     back_button = Image.open("images/back_button.png")
     resized_back_button = back_button.resize((150,50))
@@ -102,12 +144,6 @@ def user_input_three_numbers(event):
     canvas.tag_bind(tagname, "<Enter>", lambda event: enter())
     canvas.tag_bind(tagname, "<Leave>", lambda event: leave())
 
-    first_number = Image.open("images/first_number.png")
-    resized_first_number = first_number.resize((450,50))
-    new_first_number = ImageTk.PhotoImage(resized_first_number)
-
-    number_display_id = canvas.create_image(200, 515, image=new_first_number, anchor=tk.NW)
-
     user_window.mainloop()
 
 def exit_window(event):
@@ -116,7 +152,6 @@ def exit_window(event):
 
 main_window = tk.Tk()
 main_window.title("Emu finds the largest number!!!")
-# main_window.geometry("1280x720")
 WIDTH = 1150
 HEIGTH = 690
 # horizontal_velocity = 1
@@ -129,10 +164,7 @@ bg_img = Image.open("images/emu_bg_final.png")
 resized = bg_img.resize((1150,690))
 new_bg_img = ImageTk.PhotoImage(resized)
 bg_img_canvas = canvas.create_image(0, 0, image= new_bg_img, anchor=tk.NW)
-# bg_img_label = Label(main_window, image = new_bg_img).place(relx=0/1280,rely=0/720)
 
-# bg_photo = PhotoImage(file="images/emu_bg2.png")
-# title_image = canvas.create_image(0, 0, image = bg_photo, anchor=NW)
 text_blur = Image.open("images/text_blur.png")
 resized_text_blur = text_blur.resize((540,200))
 new_text_blur = ImageTk.PhotoImage(resized_text_blur)
@@ -142,9 +174,6 @@ photo_title = Image.open("images/main_title_1.png")
 resized_title = photo_title.resize((400,50))
 new_photo_title = ImageTk.PhotoImage(resized_title)
 title_display = canvas.create_image(300, 200, image = new_photo_title)
-
-# photo_title = PhotoImage(file="images/main_title_1.png")
-# title_image = canvas.create_image(600, 200, image = photo_title)
 
 photo_title_2 = Image.open("images/main_title_2.png")
 resized_title_2 = photo_title_2.resize((540,50))
@@ -181,11 +210,6 @@ resized_start_button = start_button.resize((230,75))
 new_start_button = ImageTk.PhotoImage(resized_start_button)
 start = canvas.create_image(300, 400, image= new_start_button, tag = tagname)
 canvas.tag_bind(start, "<Button-1>", user_input_three_numbers)
-# start_btn = canvas.create_image(0, 0, image = button_img)
-# Button(main_window, image=button_img, command=user_input_three_numbers).pack()
-# button_function = tk.Button(main_window, image=start_btn, command= user_input_three_numbers)
-# button_function.pack()
-# button_function.place(relx=600, rely=200)
 
 exit_button = Image.open("images/exit_button.png")
 resized_exit_button = exit_button.resize((170,60))

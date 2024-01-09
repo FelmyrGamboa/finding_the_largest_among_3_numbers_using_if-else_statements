@@ -9,33 +9,106 @@ from tkinter import messagebox
 from PIL import ImageTk, Image
 
 def user_input_three_numbers(event):
-    #ask user for input
+    # #ask user for input
     # first_number = float(input("Please input your 1st Number: "))
     # second_number = float(input("Please input your 2nd Number: "))
     # third_number = float(input("Please input your 3rd Number: "))
+
+    # # first_number = simpledialog.askfloat("Your First Number","Please input your 1st Number: ")
+    # # # if first_number == None:
+    # # #     messagebox.showerror("Error", "Please input a number ") 
+
+    # # second_number = simpledialog.askfloat("Your Second Number","Please input your 2nd Number: ")
+    # # # if second_number == None:
+    # # #     messagebox.showerror("Error", "Please input a number ")
+
+    # # third_number = simpledialog.askfloat("Your Third Number","Please input your 3rd Number: ")
+    # # # if third_number == None:
+    # # #     messagebox.showerror("Error", "Please input a number ")
+
+    # #check if the numbers are equal to each other
+    # if first_number == second_number == third_number:
+    #     result_equal= (f"The numbers {first_number}, {second_number} and {third_number} are equal to each other.")
+    #     messagebox.showinfo("Results",result_equal )
+
+    # #check for the largest number in the three numbers collected
+    # else:
+    #     largest_number = max(first_number, second_number, third_number)
+    #     result = (f"Among the numbers {first_number}, {second_number} and {third_number}, the largest is {largest_number}")
+    #     messagebox.showinfo("Results",result )
+
+    # first_input = Entry()
     
-    first_number = simpledialog.askfloat("Your First Number","Please input your 1st Number: ")
-    # if first_number == None:
-    #     messagebox.showerror("Error", "Please input a number ") 
+    def second_text(event):
+        second_number = Image.open("images/second_number.png")
+        resized_second_number = second_number.resize((450,50))
+        new_second_number = ImageTk.PhotoImage(resized_second_number)
+        canvas.itemconfig(number_display_id, image=second_number)
+    
+    def back_to_main(event):
+        user_window.destroy()
 
-    second_number = simpledialog.askfloat("Your Second Number","Please input your 2nd Number: ")
-    # if second_number == None:
-    #     messagebox.showerror("Error", "Please input a number ")
+    user_window = tk.Toplevel(main_window)
+    user_window.title("Emu finds the largest number!!!")
+    WIDTH = 1150
+    HEIGTH = 690
+    canvas = Canvas(user_window, width=WIDTH, height= HEIGTH)
+    canvas.pack()
+    user_window.resizable(False,False)
 
-    third_number = simpledialog.askfloat("Your Third Number","Please input your 3rd Number: ")
-    # if third_number == None:
-    #     messagebox.showerror("Error", "Please input a number ")
+    user_bg_img = Image.open("images/classroom_bg.png")
+    resized_user = user_bg_img.resize((1150,690))
+    new_user_bg_img = ImageTk.PhotoImage(resized_user)
+    user_display = canvas.create_image(0, 0, image=new_user_bg_img, anchor=tk.NW)
 
-    #check if the numbers are equal to each other
-    if first_number == second_number == third_number:
-        result_equal= (f"The numbers {first_number}, {second_number} and {third_number} are equal to each other.")
-        messagebox.showinfo("Results",result_equal )
+    girl_model = Image.open("images/emu_2d_model.png")
+    resized_girl_model = girl_model.resize((389,670))
+    new_girl_model = ImageTk.PhotoImage(resized_girl_model)
+    girl_model_display = canvas.create_image(400, 25, image=new_girl_model, anchor=tk.NW)
 
-    #check for the largest number in the three numbers collected
-    else:
-        largest_number = max(first_number, second_number, third_number)
-        result = (f"Among the numbers {first_number}, {second_number} and {third_number}, the largest is {largest_number}")
-        messagebox.showinfo("Results",result )
+    textbox_img = Image.open("images/textbox.png")
+    resized_textbox = textbox_img.resize((1000,200))
+    new_textbox_img = ImageTk.PhotoImage(resized_textbox)
+    textbox_display = canvas.create_image(100, 450, image=new_textbox_img, anchor=tk.NW)
+
+    namebox_img = Image.open("images/namebox.png")
+    resized_namebox = namebox_img.resize((450,80))
+    new_namebox_img = ImageTk.PhotoImage(resized_namebox)
+    namebox_display = canvas.create_image(150, 420, image=new_namebox_img, anchor=tk.NW)
+
+    model_name = Image.open("images/emu_name.png")
+    resized_model_name = model_name.resize((350,50))
+    new_model_name = ImageTk.PhotoImage(resized_model_name)
+    model_name_display = canvas.create_image(200, 435, image=new_model_name, anchor=tk.NW)
+
+    def enter():
+        canvas.config(cursor="hand2")
+
+    def leave():
+        canvas.config(cursor="")
+
+    submit_button = Image.open("images/submit_button.png")
+    resized_submit_button = submit_button.resize((150,50))
+    new_submit_button = ImageTk.PhotoImage(resized_submit_button)
+    submit_button_display = canvas.create_image(700, 575, image=new_submit_button, anchor=tk.NW, tag = tagname)
+    canvas.tag_bind(submit_button_display, "<Button-1>", second_text)
+    
+    back_button = Image.open("images/back_button.png")
+    resized_back_button = back_button.resize((150,50))
+    new_back_button = ImageTk.PhotoImage(resized_back_button)
+    back_button_display = canvas.create_image(300, 575, image=new_back_button, anchor=tk.NW, tag = tagname)
+    canvas.tag_bind(back_button_display, "<Button-1>", back_to_main)
+
+    canvas.tag_bind(tagname, "<Enter>", lambda event: enter())
+    canvas.tag_bind(tagname, "<Leave>", lambda event: leave())
+
+    first_number = Image.open("images/first_number.png")
+    resized_first_number = first_number.resize((450,50))
+    new_first_number = ImageTk.PhotoImage(resized_first_number)
+
+    number_display_id = canvas.create_image(200, 515, image=new_first_number, anchor=tk.NW)
+
+    user_window.mainloop()
 
 def exit_window(event):
     main_window.destroy()
@@ -104,7 +177,7 @@ def leave():
 
 tagname = "event"
 start_button = Image.open("images/start_button.png")
-resized_start_button = start_button.resize((260,90))
+resized_start_button = start_button.resize((230,75))
 new_start_button = ImageTk.PhotoImage(resized_start_button)
 start = canvas.create_image(300, 400, image= new_start_button, tag = tagname)
 canvas.tag_bind(start, "<Button-1>", user_input_three_numbers)
@@ -115,7 +188,7 @@ canvas.tag_bind(start, "<Button-1>", user_input_three_numbers)
 # button_function.place(relx=600, rely=200)
 
 exit_button = Image.open("images/exit_button.png")
-resized_exit_button = exit_button.resize((160,60))
+resized_exit_button = exit_button.resize((170,60))
 new_exit_button = ImageTk.PhotoImage(resized_exit_button)
 exit = canvas.create_image(300, 500, image= new_exit_button, tag = tagname)
 canvas.tag_bind(exit, "<Button-1>", exit_window)

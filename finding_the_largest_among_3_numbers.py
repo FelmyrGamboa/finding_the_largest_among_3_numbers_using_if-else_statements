@@ -9,58 +9,32 @@ from tkinter import messagebox
 from PIL import ImageTk, Image
 
 def user_input_three_numbers(event):
-    # #ask user for input
-    # first_number = float(input("Please input your 1st Number: "))
-    # second_number = float(input("Please input your 2nd Number: "))
-    # third_number = float(input("Please input your 3rd Number: "))
-
-    # # first_number = simpledialog.askfloat("Your First Number","Please input your 1st Number: ")
-    # # # if first_number == None:
-    # # #     messagebox.showerror("Error", "Please input a number ") 
-
-    # # second_number = simpledialog.askfloat("Your Second Number","Please input your 2nd Number: ")
-    # # # if second_number == None:
-    # # #     messagebox.showerror("Error", "Please input a number ")
-
-    # # third_number = simpledialog.askfloat("Your Third Number","Please input your 3rd Number: ")
-    # # # if third_number == None:
-    # # #     messagebox.showerror("Error", "Please input a number ")
-
-    # #check if the numbers are equal to each other
-    # if first_number == second_number == third_number:
-    #     result_equal= (f"The numbers {first_number}, {second_number} and {third_number} are equal to each other.")
-    #     messagebox.showinfo("Results",result_equal )
-
-    # #check for the largest number in the three numbers collected
-    # else:
-    #     largest_number = max(first_number, second_number, third_number)
-    #     result = (f"Among the numbers {first_number}, {second_number} and {third_number}, the largest is {largest_number}")
-    #     messagebox.showinfo("Results",result )
-
-    # first_input = Entry()
-    
+    # #ask user for input    
     def emu_conversation(event):
+        #ask user to enter first number
         first_entry = simpledialog.askfloat("Your First Number","Please input your 1st Number: ")
         if first_entry == None:
             messagebox.showerror("Error", "Please input a number ")
-            return(user_window)
+            first_entry.quit()
         
+        # ask user to enter second number
         second_entry = simpledialog.askfloat("Your Second Number","Please input your 2nd Number: ")
         if second_entry == None:
-            messagebox.showerror("Error", "Please input a number ")
-            return(first_entry)
+            messagebox.showerror("Error", "Please input a number")
+            second_entry.quit()
         
+        # ask user to enter third number
         third_entry = simpledialog.askfloat("Your Third Number","Please input your 3rd Number: ")
         if third_entry == None:
             messagebox.showerror("Error", "Please input a number ")
-            return(second_entry)
+            third_entry.quit()
         
+        #check for the largest number in the three numbers collected
         if first_entry == second_entry == third_entry:
             result_equal= (f"The numbers {first_entry}, {second_entry} and {third_entry} are equal to each other.")
             messagebox.showinfo("Results",result_equal )
             main_window.destroy()
 
-        #check for the largest number in the three numbers collected
         else:
             largest_number = max(first_entry, second_entry, third_entry)
             result = (f"Among the numbers {first_entry}, {second_entry} and {third_entry}, the largest is {largest_number}")
@@ -113,15 +87,6 @@ def user_input_three_numbers(event):
     new_conversation_text_2 = ImageTk.PhotoImage(resized_conversation_text_2)
     conversation_text_2_display = canvas.create_image(610, 515, image=new_conversation_text_2, anchor=tk.NW)
 
-    # first_number = Image.open("images/first_number.png")
-    # resized_first_number = first_number.resize((450,50))
-    # new_first_number = ImageTk.PhotoImage(resized_first_number)
-    # number_display_id = canvas.create_image(200, 515, image=new_first_number, anchor=tk.NW)
-
-    # second_number = Image.open("images/second_number.png")
-    # resized_second_number = second_number.resize((450,50))
-    # new_second_number = ImageTk.PhotoImage(resized_second_number)
-
     #cursor of the buttons
     def enter():
         canvas.config(cursor="hand2")
@@ -154,8 +119,6 @@ main_window = tk.Tk()
 main_window.title("Emu finds the largest number!!!")
 WIDTH = 1150
 HEIGTH = 690
-# horizontal_velocity = 1
-# vertical_velocity = 1
 canvas = Canvas(main_window, width=WIDTH, height= HEIGTH)
 canvas.pack()
 main_window.resizable(False,False)
@@ -179,23 +142,6 @@ photo_title_2 = Image.open("images/main_title_2.png")
 resized_title_2 = photo_title_2.resize((540,50))
 new_photo_title_2 = ImageTk.PhotoImage(resized_title_2)
 title_display_2 = canvas.create_image(300, 250, image = new_photo_title_2)
-
-# photo_title2 = PhotoImage(file="images/main_title_2.png")
-# title_image2 = canvas.create_image(600, 260, image = photo_title2)
-
-# photo_float = PhotoImage(file="images/Wonderhoy!.png")
-# float_image = canvas.create_image(0, 0, image = photo_float, anchor=NW)
-
-# while True:
-#     coordinates = canvas.coords(float_image)
-#     print(coordinates)
-#     canvas.move(float_image, horizontal_velocity,0)
-#     main_window.update()
-#     time.sleep(0.01)
-
-# button_img = Image.open("images/button.png")
-# resized = button_img.resize((50,50))
-# new_bg_img = ImageTk.PhotoImage(resized)
 
 #cursor event of the buttons
 def enter():

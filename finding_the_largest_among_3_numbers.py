@@ -29,12 +29,27 @@ def user_input_three_numbers(event):
             messagebox.showerror("Error", "Please input a number! Emu is not happy: " + f"\n" + f"                                                           ╱|、" + f"\n" + f"                                                         (˚ˎ 。7 " + f"\n" + f"                                                          |、˜〵" + f"\n" + f"                                                          じしˍ,)ノ")
             user_window.destroy()
 
+        if first_entry > second_entry:
+            if first_entry > third_entry:
+                largest_number = first_entry
+            else:
+                largest_number = third_entry
+        
+        else: 
+            if second_entry > third_entry:
+                largest_number = second_entry
+            else:
+                largest_number = third_entry
+ 
+        if first_entry == second_entry == third_entry:
+            messagebox.showinfo("Equal Numbers", "They are all equal numbers! Emu wants you to try again" + f"\n" + f"                                                           ╱|、" + f"\n" + f"                                                         (˚ˎ 。7 " + f"\n" + f"                                                          |、˜〵" + f"\n" + f"                                                          じしˍ,)ノ")
+            user_window.destroy()
+
         else:
-            largest_number = max(first_entry, second_entry, third_entry)
             result = (f"Among the numbers {first_entry}, {second_entry} and {third_entry}, the largest is {largest_number}")
             messagebox.showinfo("Results",result )
             user_window.destroy()
-    
+
     def back_to_main(event):
         user_window.destroy()
 
